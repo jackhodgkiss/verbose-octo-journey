@@ -41,3 +41,7 @@ etc/kayobe/inventory/group_vars/seed/ansible-host
 
 # Ignore kolla configuration.
 etc/kolla
+
+# Ignore Ansible collections and roles.
+etc/kayobe/ansible/collections/**
+etc/kayobe/ansible/roles/**
