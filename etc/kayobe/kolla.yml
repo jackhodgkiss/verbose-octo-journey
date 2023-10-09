@@ -274,10 +274,10 @@ kolla_enable_tls_internal: true
 #kolla_enable_ceilometer_ipmi:
 #kolla_enable_ceilometer_prometheus_pushgateway:
 #kolla_enable_cells:
-#kolla_enable_central_logging:
+kolla_enable_central_logging: true
 #kolla_enable_ceph_rgw:
 #kolla_enable_ceph_rgw_loadbalancer:
-#kolla_enable_cinder:
+kolla_enable_cinder: true
 #kolla_enable_cinder_backend_hnas_nfs:
 #kolla_enable_cinder_backend_iscsi:
 #kolla_enable_cinder_backend_lvm:
@@ -286,13 +286,13 @@ kolla_enable_tls_internal: true
 #kolla_enable_cinder_backend_pure_iscsi:
 #kolla_enable_cinder_backend_pure_roce:
 #kolla_enable_cinder_backend_quobyte:
-#kolla_enable_cinder_backup:
+kolla_enable_cinder_backup: true
 #kolla_enable_cinder_horizon_policy_file:
 #kolla_enable_cloudkitty:
 #kolla_enable_collectd:
 #kolla_enable_container_healthchecks:
 #kolla_enable_cyborg:
-#kolla_enable_designate:
+kolla_enable_designate: true
 #kolla_enable_destroy_images:
 #kolla_enable_etcd:
 #kolla_enable_external_api_firewalld:
@@ -351,7 +351,7 @@ kolla_enable_tls_internal: true
 #kolla_enable_manila_backend_generic:
 #kolla_enable_manila_backend_glusterfs_nfs:
 #kolla_enable_manila_backend_hnas:
-#kolla_enable_mariabackup:
+kolla_enable_mariabackup: true
 #kolla_enable_mariadb:
 #kolla_enable_masakari:
 #kolla_enable_masakari_hostmonitor:
@@ -370,7 +370,7 @@ kolla_enable_tls_internal: true
 #kolla_enable_neutron_mlnx:
 #kolla_enable_neutron_packet_logging:
 #kolla_enable_neutron_port_forwarding:
-#kolla_enable_neutron_provider_networks:
+kolla_enable_neutron_provider_networks: true
 #kolla_enable_neutron_qos:
 #kolla_enable_neutron_segments:
 #kolla_enable_neutron_sfc:
@@ -392,7 +392,7 @@ kolla_enable_tls_internal: true
 #kolla_enable_openvswitch:
 #kolla_enable_osprofiler:
 #kolla_enable_outward_rabbitmq:
-#kolla_enable_ovn:
+kolla_enable_ovn: true
 #kolla_enable_ovs_dpdk:
 #kolla_enable_placement:
 #kolla_enable_prometheus:
@@ -416,7 +416,7 @@ kolla_enable_tls_internal: true
 #kolla_enable_prometheus_server:
 #kolla_enable_proxysql:
 #kolla_enable_rabbitmq:
-#kolla_enable_redis:
+kolla_enable_redis: true
 #kolla_enable_sahara:
 #kolla_enable_senlin:
 #kolla_enable_skydive:
