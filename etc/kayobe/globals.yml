@@ -47,12 +47,12 @@
 
 # OS distribution name. Valid options are "centos", "rocky", "ubuntu". Default
 # is "rocky".
-#os_distribution:
+os_distribution: ubuntu
 
 # OS release. Valid options are "9-stream" when os_distribution is "centos", or
 # "9" when os_distribution is "rocky", or "jammy" when os_distribution is
 # "ubuntu".
-#os_release:
+os_release: jammy
 
 ###############################################################################
 # Ansible configuration.
