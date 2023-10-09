@@ -1,0 +1,5 @@
+---
+lvm_group_rootvg_lvs_extra:
+  - "{{ lvm_lv_docker }}"
+
+lvm_lv_docker_size: 50%FREE
