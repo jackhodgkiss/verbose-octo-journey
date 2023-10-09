@@ -80,23 +80,23 @@
 
 # URL of docker registry to use for Kolla images. Default is not set, in which
 # case Quay.io will be used.
-#kolla_docker_registry:
+kolla_docker_registry: pulp.infra.os.hodgkiss.cloud
 
 # Docker namespace to use for Kolla images. Default is 'kolla'.
-#kolla_docker_namespace:
+kolla_docker_namespace: openstack.kolla
 
 # Whether docker should be configured to use an insecure registry for Kolla
 # images. Default is false, unless docker_registry_enabled is true and
 # docker_registry_enable_tls is false.
-#kolla_docker_registry_insecure:
+kolla_docker_registry_insecure: false
 
 # Username to use to access a docker registry. Default is not set, in which
 # case the registry will be used without authentication.
-#kolla_docker_registry_username:
+kolla_docker_registry_username: admin
 
 # Password to use to access a docker registry. Default is not set, in which
 # case the registry will be used without authentication.
-#kolla_docker_registry_password:
+kolla_docker_registry_password: "{{ secrets_docker_registry_password }}"
 
 # Kolla OpenStack release version. This should be a Docker image tag.
 # Default is {{ openstack_release }}.
