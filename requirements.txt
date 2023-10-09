@@ -1,0 +1,1 @@
+git+https://opendev.org/openstack/kayobe@stable/zed
