@@ -24,6 +24,13 @@ seed-hypervisor
 [infra-vms]
 # Empty group to provide declaration of infra-vms group.
 
+
+[github-runners]
+# Empty group to provide declaration of github-runner group.
+
+[github-writer]
+localhost
+
 ###############################################################################
 # Overcloud groups.
 

@@ -1,0 +1,25 @@
+---
+github_output_directory: "{{ kayobe_config_path }}/../../.github/workflows"
+
+github_environment_selector: input
+
+github_kayobe_environments:
+  - production
+  - staging
+
+github_kayobe_arguments:
+  KAYOBE_AUTOMATION_SSH_PRIVATE_KEY: ${{ secrets.KAYOBE_AUTOMATION_SSH_PRIVATE_KEY }}
+  KAYOBE_VAULT_PASSWORD: ${{ secrets.KAYOBE_VAULT_PASSWORD }}
+  TEMPEST_OPENRC: ${{ secrets.TEMPEST_OPENRC }}
+
+github_runs_on:
+  - kayobe
+  - openstack
+
+github_registry:
+  url: pulp.infra.os.hodgkiss.cloud
+  username: admin
+  password: ${{ secrets.REGISTRY_PASSWORD }}
+  share: true
+
+github_kayobe_base_image: quay.io/rockylinux/rockylinux:9
