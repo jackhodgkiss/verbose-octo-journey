@@ -1,0 +1,3 @@
+DEFAULT_THEME = 'automation'
+
+SITE_BRANDING = "Staging"
