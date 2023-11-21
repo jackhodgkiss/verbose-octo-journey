@@ -269,7 +269,7 @@ kolla_enable_tls_internal: true
 #kolla_enable_aodh:
 #kolla_enable_barbican:
 #kolla_enable_blazar:
-#kolla_enable_ceilometer:
+kolla_enable_ceilometer: true
 #kolla_enable_ceilometer_horizon_policy_file:
 #kolla_enable_ceilometer_ipmi:
 #kolla_enable_ceilometer_prometheus_pushgateway:
@@ -302,7 +302,7 @@ kolla_enable_designate: true
 #kolla_enable_glance:
 #kolla_enable_glance_horizon_policy_file:
 #kolla_enable_glance_image_cache:
-#kolla_enable_gnocchi:
+kolla_enable_gnocchi: true
 #kolla_enable_gnocchi_statsd:
 #kolla_enable_grafana:
 #kolla_enable_grafana_external:
@@ -366,7 +366,7 @@ kolla_enable_mariabackup: true
 #kolla_enable_neutron_dvr:
 #kolla_enable_neutron_horizon_policy_file:
 #kolla_enable_neutron_infoblox_ipam_agent:
-#kolla_enable_neutron_metering:
+kolla_enable_neutron_metering: true
 #kolla_enable_neutron_mlnx:
 #kolla_enable_neutron_packet_logging:
 #kolla_enable_neutron_port_forwarding:
