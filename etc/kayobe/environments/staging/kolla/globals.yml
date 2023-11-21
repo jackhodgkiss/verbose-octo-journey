@@ -15,3 +15,5 @@ designate_ns_record:
   - "ns1.infra.os.hodgkiss.cloud"
   - "ns2.infra.os.hodgkiss.cloud"
   - "ns3.infra.os.hodgkiss.cloud"
+
+horizon_custom_themes: [{"name": "automation", "label": "Automation"}]
