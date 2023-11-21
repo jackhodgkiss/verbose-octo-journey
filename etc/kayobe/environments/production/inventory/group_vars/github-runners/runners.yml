@@ -15,3 +15,8 @@ github_runners:
   production_runner_01: {}
   production_runner_02: {}
   production_runner_03: {}
+
+docker_users:
+  - "{{ runner_user }}"
+pip_install_packages:
+  - name: docker
