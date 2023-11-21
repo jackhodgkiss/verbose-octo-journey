@@ -1,0 +1,29 @@
+---
+###############################################################################
+# Network interface definitions for the controller group.
+
+admin_oc_interface: "breth0"
+
+oob_wl_interface: "{{ admin_oc_interface }}.{{ oob_wl_vlan }}"
+
+provision_wl_interface: "{{ admin_oc_interface }}.{{ provision_wl_vlan }}"
+
+internal_interface: "{{ admin_oc_interface}}.{{ internal_vlan }}"
+
+external_interface: "{{ admin_oc_interface}}.{{ external_vlan }}"
+
+public_interface: "{{ admin_oc_interface }}.{{ public_vlan }}"
+
+tunnel_interface: "{{ admin_oc_interface }}.{{ tunnel_vlan }}"
+
+storage_interface: "{{ admin_oc_interface }}.{{ storage_vlan }}"
+
+swift_interface: "{{ admin_oc_interface }}.{{ swift_vlan }}"
+
+inspection_interface: "{{ admin_oc_interface }}.{{ inspection_vlan }}"
+
+cleaning_interface: "{{ admin_oc_interface }}.{{ cleaning_vlan }}"
+
+###############################################################################
+# Dummy variable to allow Ansible to accept this file.
+workaround_ansible_issue_8743: yes

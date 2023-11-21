@@ -1,0 +1,17 @@
+---
+cinder_backend_ceph: true
+
+glance_backend_ceph: true
+
+nova_backend_ceph: true
+
+neutron_plugin_agent: "ovn"
+
+openstack_service_workers: "1"
+
+openstack_service_rpc_workers: "1"
+
+designate_ns_record:
+  - "ns1.infra.os.hodgkiss.cloud"
+  - "ns2.infra.os.hodgkiss.cloud"
+  - "ns3.infra.os.hodgkiss.cloud"

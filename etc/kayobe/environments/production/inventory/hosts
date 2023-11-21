@@ -1,0 +1,47 @@
+# Kayobe hosts inventory file. This file should be modified to define the hosts
+# and their top-level group membership.
+
+localhost ansible_connection=local
+
+[seed]
+seed-01
+
+[controllers]
+controller-01
+controller-02
+controller-03
+
+[compute:children]
+controllers
+
+[storage:children]
+ceph
+
+[ceph:children]
+mgrs
+mons
+osds
+rgws
+
+[mgrs:children]
+controllers
+
+[mons:children]
+controllers
+
+[osds:children]
+controllers
+
+[rgws]
+
+[operations]
+operations-01
+
+[infra-vms:children]
+operations
+
+[tempest_runner]
+operations-01
+
+[github-runners]
+operations-01

@@ -1,0 +1,182 @@
+---
+# Kayobe network configuration.
+
+###############################################################################
+# Network role to network mappings.
+
+# Name of the network used for admin access to the overcloud
+admin_oc_net_name: admin_oc
+
+# Name of the network used by the seed to manage the bare metal overcloud
+# hosts via their out-of-band management controllers.
+oob_oc_net_name: oob_oc
+
+# Name of the network used by the seed to provision the bare metal overcloud
+# hosts.
+provision_oc_net_name: provision_oc
+
+# Name of the network used by the overcloud hosts to manage the bare metal
+# compute hosts via their out-of-band management controllers.
+oob_wl_net_name: oob_wl
+
+# Name of the network used by the overcloud hosts to provision the bare metal
+# workload hosts.
+provision_wl_net_name: provision_wl
+
+# Name of the network used to expose the internal OpenStack API endpoints.
+internal_net_name: internal
+
+# List of names of networks used to provide external network access via
+# Neutron.
+# Deprecated name: external_net_name
+# If external_net_name is defined, external_net_names will default to a list
+# containing one item, external_net_name.
+external_net_names:
+  - external
+
+# Name of the network used to expose the public OpenStack API endpoints.
+public_net_name: public
+
+# Name of the network used by Neutron to carry tenant overlay network traffic.
+tunnel_net_name: tunnel
+
+# Name of the network used to carry storage data traffic.
+storage_net_name: storage
+
+# Name of the network used to carry storage management traffic.
+storage_mgmt_net_name: storage_mgmt
+
+# Name of the network used to carry swift storage data traffic.
+swift_storage_net_name: swift
+
+# Name of the network used to carry swift storage replication traffic.
+swift_storage_replication_net_name: swift_replication
+
+# Name of the network used to perform hardware introspection on the bare metal
+# workload hosts.
+inspection_net_name: inspection
+
+# Name of the network used to perform cleaning on the bare metal workload
+# hosts
+cleaning_net_name: cleaning
+
+###############################################################################
+# Network definitions.
+
+network_ipv4: 10.0.0.0/16
+
+# Admin network IP information.
+admin_oc_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, 0) }}"
+admin_oc_gateway: "{{ admin_oc_cidr | ansible.utils.next_nth_usable(254) }}"
+admin_oc_bridge_ports:
+  - "eth0"
+
+# Overcloud out-of-band management network IP information.
+oob_oc_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, oob_oc_vlan) }}"
+oob_oc_allocation_pool_start: "{{ oob_oc_cidr | ansible.utils.next_nth_usable(2) }}"
+oob_oc_allocation_pool_end: "{{ oob_oc_cidr | ansible.utils.next_nth_usable(149) }}"
+oob_oc_inspection_allocation_pool_start: "{{ oob_oc_cidr | ansible.utils.next_nth_usable(150) }}"
+oob_oc_inspection_allocation_pool_end: "{{ oob_oc_cidr | ansible.utils.next_nth_usable(199) }}"
+oob_oc_vlan: 10
+
+# Workload out-of-band management network IP information.
+oob_wl_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, oob_wl_vlan) }}"
+oob_wl_allocation_pool_start: "{{ oob_wl_cidr | ansible.utils.next_nth_usable(2) }}"
+oob_wl_allocation_pool_end: "{{ oob_wl_cidr | ansible.utils.next_nth_usable(149) }}"
+oob_wl_inspection_allocation_pool_start: "{{ oob_wl_cidr | ansible.utils.next_nth_usable(150) }}"
+oob_wl_inspection_allocation_pool_end: "{{ oob_wl_cidr | ansible.utils.next_nth_usable(199) }}"
+oob_wl_neutron_allocation_pool_start: "{{ oob_wl_cidr | ansible.utils.next_nth_usable(200) }}"
+oob_wl_neutron_allocation_pool_end: "{{ oob_wl_cidr | ansible.utils.next_nth_usable(249) }}"
+oob_wl_vlan: 11
+
+# Overcloud provisioning network IP information.
+provision_oc_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, provision_oc_vlan) }}"
+provision_oc_allocation_pool_start: "{{ provision_oc_cidr | ansible.utils.next_nth_usable(2) }}"
+provision_oc_allocation_pool_end: "{{ provision_oc_cidr | ansible.utils.next_nth_usable(149) }}"
+provision_oc_inspection_allocation_pool_start: "{{ provision_oc_cidr | ansible.utils.next_nth_usable(150) }}"
+provision_oc_inspection_allocation_pool_end: "{{ provision_oc_cidr | ansible.utils.next_nth_usable(199) }}"
+provision_oc_vlan: 20
+
+# Workload provisioning network IP information.
+provision_wl_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, provision_wl_vlan) }}"
+provision_wl_allocation_pool_start: "{{ provision_wl_cidr | ansible.utils.next_nth_usable(2) }}"
+provision_wl_allocation_pool_end: "{{ provision_wl_cidr | ansible.utils.next_nth_usable(149) }}"
+provision_wl_inspection_allocation_pool_start: "{{ provision_wl_cidr | ansible.utils.next_nth_usable(150) }}"
+provision_wl_inspection_allocation_pool_end: "{{ provision_wl_cidr | ansible.utils.next_nth_usable(199) }}"
+provision_wl_neutron_allocation_pool_start: "{{ provision_wl_cidr | ansible.utils.next_nth_usable(200) }}"
+provision_wl_neutron_allocation_pool_end: "{{ provision_wl_cidr | ansible.utils.next_nth_usable(249) }}"
+provision_wl_vlan: 21
+
+# Internal network IP information.
+internal_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, internal_vlan) }}"
+internal_fqdn: internal.infra.os.hodgkiss.cloud
+internal_vip_address: "{{ internal_cidr | ansible.utils.next_nth_usable(1) }}"
+internal_allocation_pool_start: "{{ internal_cidr | ansible.utils.next_nth_usable(2) }}"
+internal_allocation_pool_end: "{{ internal_cidr | ansible.utils.next_nth_usable(149) }}"
+internal_vlan: 30
+
+# External network IP information.
+external_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, external_vlan) }}"
+external_allocation_pool_start: "{{ external_cidr | ansible.utils.next_nth_usable(2) }}"
+external_allocation_pool_end: "{{ external_cidr | ansible.utils.next_nth_usable(149) }}"
+external_neutron_allocation_pool_start: "{{ external_cidr | ansible.utils.next_nth_usable(200) }}"
+external_neutron_allocation_pool_end: "{{ external_cidr | ansible.utils.next_nth_usable(249) }}"
+external_vlan: 40
+
+# Public network IP information.
+public_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, public_vlan) }}"
+public_fqdn: public.infra.os.hodgkiss.cloud
+public_vip_address: "{{ public_cidr | ansible.utils.next_nth_usable(1) }}"
+public_allocation_pool_start: "{{ public_cidr | ansible.utils.next_nth_usable(2) }}"
+public_allocation_pool_end: "{{ public_cidr | ansible.utils.next_nth_usable(149) }}"
+public_vlan: 50
+
+# Tunnel network IP information.
+tunnel_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, tunnel_vlan) }}"
+tunnel_allocation_pool_start: "{{ tunnel_cidr | ansible.utils.next_nth_usable(2) }}"
+tunnel_allocation_pool_end: "{{ tunnel_cidr | ansible.utils.next_nth_usable(149) }}"
+tunnel_vlan: 60
+
+# Storage network IP information.
+storage_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, storage_vlan) }}"
+storage_allocation_pool_start: "{{ storage_cidr | ansible.utils.next_nth_usable(2) }}"
+storage_allocation_pool_end: "{{ storage_cidr | ansible.utils.next_nth_usable(149) }}"
+storage_vlan: 70
+
+# Storage management network IP information.
+storage_mgmt_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, storage_mgmt_vlan) }}"
+storage_mgmt_allocation_pool_start: "{{ storage_mgmt_cidr | ansible.utils.next_nth_usable(2) }}"
+storage_mgmt_allocation_pool_end: "{{ storage_mgmt_cidr | ansible.utils.next_nth_usable(149) }}"
+storage_mgmt_vlan: 71
+
+# Swift network IP information.
+swift_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, swift_vlan) }}"
+swift_allocation_pool_start: "{{ swift_cidr | ansible.utils.next_nth_usable(2) }}"
+swift_allocation_pool_end: "{{ swift_cidr | ansible.utils.next_nth_usable(149) }}"
+swift_vlan: 80
+
+# Swift replication network IP information.
+swift_replication_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, swift_replication_vlan) }}"
+swift_replication_allocation_pool_start: "{{ swift_replication_cidr | ansible.utils.next_nth_usable(2) }}"
+swift_replication_allocation_pool_end: "{{ swift_replication_cidr | ansible.utils.next_nth_usable(149) }}"
+swift_replication_vlan: 81
+
+# Inspection network IP information.
+inspection_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, inspection_vlan) }}"
+inspection_allocation_pool_start: "{{ inspection_cidr | ansible.utils.next_nth_usable(2) }}"
+inspection_allocation_pool_end: "{{ inspection_cidr | ansible.utils.next_nth_usable(149) }}"
+inspection_neutron_allocation_pool_start: "{{ inspection_cidr | ansible.utils.next_nth_usable(200) }}"
+inspection_neutron_allocation_pool_end: "{{ inspection_cidr | ansible.utils.next_nth_usable(249) }}"
+inspection_vlan: 90
+
+# Cleaning network IP information.
+cleaning_cidr: "{{ network_ipv4 | ansible.utils.ipsubnet(24, cleaning_vlan) }}"
+cleaning_allocation_pool_start: "{{ cleaning_cidr | ansible.utils.next_nth_usable(2) }}"
+cleaning_allocation_pool_end: "{{ cleaning_cidr | ansible.utils.next_nth_usable(149) }}"
+cleaning_neutron_allocation_pool_start: "{{ cleaning_cidr | ansible.utils.next_nth_usable(200) }}"
+cleaning_neutron_allocation_pool_end: "{{ cleaning_cidr | ansible.utils.next_nth_usable(249) }}"
+cleaning_vlan: 100
+
+###############################################################################
+# Dummy variable to allow Ansible to accept this file.
+workaround_ansible_issue_8743: yes

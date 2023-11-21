@@ -1,0 +1,17 @@
+---
+runner_user: cloud-user
+github_account: jackhodgkiss
+github_repo: verbose-octo-journey
+access_token: "{{ secrets_github_access_token }}"
+
+base_runner_dir: /opt/actions-runner
+
+default_runner_labels:
+  - kayobe
+  - openstack
+  - "{{ kayobe_environment | default(omit) }}"
+
+github_runners:
+  production_runner_01: {}
+  production_runner_02: {}
+  production_runner_03: {}

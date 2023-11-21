@@ -1,0 +1,15 @@
+---
+###############################################################################
+# Network interface definitions for the compute group.
+
+admin_oc_interface: "breth0"
+
+internal_interface: "{{ admin_oc_interface }}.{{ internal_vlan }}"
+
+tunnel_interface: "{{ admin_oc_interface }}.{{ tunnel_vlan }}"
+
+storage_interface: "{{ admin_oc_interface }}.{{ storage_vlan }}"
+
+###############################################################################
+# Dummy variable to allow Ansible to accept this file.
+workaround_ansible_issue_8743: yes

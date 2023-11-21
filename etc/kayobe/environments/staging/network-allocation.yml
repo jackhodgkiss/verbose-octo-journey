@@ -1,0 +1,52 @@
+admin_oc_ips:
+  controller-01: 10.0.0.3
+  controller-02: 10.0.0.4
+  controller-03: 10.0.0.5
+  operations-01: 10.0.0.252
+  seed-01: 10.0.0.2
+cleaning_ips:
+  controller-01: 10.0.100.3
+  controller-02: 10.0.100.4
+  controller-03: 10.0.100.5
+external_ips:
+  controller-01: 10.0.40.3
+  controller-02: 10.0.40.4
+  controller-03: 10.0.40.5
+inspection_ips:
+  controller-01: 10.0.90.3
+  controller-02: 10.0.90.4
+  controller-03: 10.0.90.5
+internal_ips:
+  controller-01: 10.0.30.3
+  controller-02: 10.0.30.4
+  controller-03: 10.0.30.5
+oob_oc_ips:
+  seed-01: 10.0.10.2
+oob_wl_ips:
+  controller-01: 10.0.11.3
+  controller-02: 10.0.11.4
+  controller-03: 10.0.11.5
+provision_oc_ips:
+  seed-01: 10.0.20.2
+provision_wl_ips:
+  controller-01: 10.0.21.3
+  controller-02: 10.0.21.4
+  controller-03: 10.0.21.5
+public_ips:
+  controller-01: 10.0.50.3
+  controller-02: 10.0.50.4
+  controller-03: 10.0.50.5
+  operations-01: 10.0.50.252
+  seed-01: 10.0.50.2
+storage_ips:
+  controller-01: 10.0.70.3
+  controller-02: 10.0.70.4
+  controller-03: 10.0.70.5
+swift_ips:
+  controller-01: 10.0.80.3
+  controller-02: 10.0.80.4
+  controller-03: 10.0.80.5
+tunnel_ips:
+  controller-01: 10.0.60.3
+  controller-02: 10.0.60.4
+  controller-03: 10.0.60.5
