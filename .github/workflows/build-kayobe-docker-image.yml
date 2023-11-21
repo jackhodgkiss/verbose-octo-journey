@@ -1,0 +1,49 @@
+name: Build Kayobe Docker Image
+
+on:
+  workflow_dispatch:
+
+env:
+  KAYOBE_USER_UID: 1000
+  KAYOBE_USER_GID: 1000
+
+jobs:
+  prepare-runner:
+    uses: ./.github/workflows/prepare-runner.yml
+  build-kayobe-docker-image:
+    runs-on: ['kayobe', 'openstack']
+    container:
+      image: docker:24.0-git
+    permissions:
+      contents: read
+      packages: none
+    needs: prepare-runner
+    steps:
+      - name: Checkout kayobe config
+        uses: actions/checkout@v3
+        with:
+           submodules: true
+           path: docker-image-build
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: pulp.infra.os.hodgkiss.cloud
+          username: admin
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          file: ./docker-image-build/.automation/docker/kayobe/Dockerfile
+          context: docker-image-build
+          build-args: |
+             KAYOBE_DOCKER_SSH_CONFIG_PATH=.automation/docker/kayobe/ssh_config
+             KAYOBE_USER_UID=${{ env.KAYOBE_USER_UID }}
+             KAYOBE_USER_GID=${{ env.KAYOBE_USER_UID }}
+             BASE_IMAGE=quay.io/rockylinux/rockylinux:9
+          push: true
+          tags: |
+            pulp.infra.os.hodgkiss.cloud/kayobe:${{ needs.prepare-runner.outputs.openstack_release }}-latest
+            pulp.infra.os.hodgkiss.cloud/kayobe:${{ github.sha }}
+          provenance: false

@@ -1,0 +1,73 @@
+name: Run Overcloud Service Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      kolla_tags:
+        description: |
+          The ansible tags to use when running kolla-ansible playbooks.
+      kolla_limit:
+        description: |
+          The ansible limit to use for kolla-ansible playbooks.
+      kayobe_limit:
+        description: |
+          The ansible limit to use when running kayobe playbooks.
+      kayobe_tags:
+        description: |
+          The ansible tags to use when running kayobe playbooks.
+      kayobe_environment:
+        description: |
+          Select the environment the kayobe workflow shall target.
+        type: choice
+        required: true
+        default: 'production'
+        options: ['production', 'staging']
+
+jobs:
+  prepare-runner:
+    uses: ./.github/workflows/prepare-runner.yml
+  run-overcloud-service-deploy:
+    runs-on: ['kayobe', 'openstack', '${{ inputs.kayobe_environment }}']
+    permissions:
+      contents: write
+      packages: none
+      pull-requests: write
+    container:
+      image: pulp.infra.os.hodgkiss.cloud/kayobe:${{ needs.prepare-runner.outputs.openstack_release }}-latest
+      credentials:
+        username: admin
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    concurrency:
+      group: format('{0}-{1}', overcloud, '${{ inputs.kayobe_environment }}')
+      cancel-in-progress: false
+    timeout-minutes: 360
+    needs: prepare-runner
+    steps:
+      - name: Checkout kayobe config
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          path: kayobe-config
+
+      - name: Symlink source checkout to expected location
+        run: sudo ln -s $PWD/kayobe-config /src
+
+      - name: Run overcloud service deploy
+        run: |
+          /src/.automation/pipeline/overcloud-service-deploy.sh
+        env:
+          KAYOBE_ENVIRONMENT: '${{ inputs.kayobe_environment }}'
+          KAYOBE_AUTOMATION_SSH_PRIVATE_KEY: "${{ secrets.KAYOBE_AUTOMATION_SSH_PRIVATE_KEY }}"
+          KAYOBE_VAULT_PASSWORD: "${{ secrets.KAYOBE_VAULT_PASSWORD }}"
+          KAYOBE_TAGS: '${{ github.event.inputs.kayobe_tags }}'
+          KAYOBE_LIMIT: '${{ github.event.inputs.kayobe_limit }}'
+          KOLLA_TAGS: '${{ github.event.inputs.kolla_tags }}'
+          KOLLA_LIMIT: '${{ github.event.inputs.kolla_limit }}'
+          KAYOBE_AUTOMATION_PR_TARGET_BRANCH: '${{ github.event.ref }}'
+          KAYOBE_AUTOMATION_PR_REMOTE: 'https://${KAYOBE_AUTOMATION_PR_GITHUB_USER}:${KAYOBE_AUTOMATION_PR_AUTH_TOKEN}@github.com/${{ github.repository }}'
+          KAYOBE_AUTOMATION_PR_GITHUB_USER: '${{ github.actor }}'
+          KAYOBE_AUTOMATION_PR_AUTH_TOKEN: '${{ github.token }}'
+          KAYOBE_AUTOMATION_PR_TYPE: 'github'
+          KAYOBE_AUTOMATION_PR_TITLE: '[kayobe-automation] ${{ github.workflow }} #${{ github.run_id }}'
+          KAYOBE_AUTOMATION_PR_URL: 'https://api.github.com/repos/${{ github.repository }}/pulls'
+          HOME: '/stack'
