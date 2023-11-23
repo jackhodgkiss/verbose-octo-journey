@@ -43,5 +43,5 @@ etc/kayobe/inventory/group_vars/seed/ansible-host
 etc/kolla
 
 # Ignore Ansible collections and roles.
-etc/kayobe/ansible/collections/**
-etc/kayobe/ansible/roles/**
+**/ansible/collections/**
+**/ansible/roles/**
